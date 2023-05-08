@@ -1,11 +1,7 @@
-import { Component, System, World } from 'ecsy';
+import { Component, System, World } from "ecsy";
 
-export class FullscreenMode extends Component {
-
-}
-export class FullscreenButton extends Component {
-
-}
+export class FullscreenMode extends Component {}
+export class FullscreenButton extends Component {}
 /*
         this.fullscreenchangeHandler = () => {
             if(document.fullscreenElement) return this._fire(FULLSCREEN_ENTERED, this)
@@ -28,47 +24,47 @@ export class FullscreenButton extends Component {
 
 
  */
-export class FullscreenSystem extends  System {
-    execute(delta, time) {
-        this.queries.buttons.added.forEach(ent => {
-            let elem = document.createElement('button')
-            elem.innerText = "fullscreen"
-            elem.classList.add("fullscreen")
-            elem.addEventListener('click',(e)=>{
-                e.stopPropagation()
-                e.preventDefault()
-                ent.addComponent(FullscreenMode);
-            })
-            document.documentElement.append(elem);
-        })
-        this.queries.active.added.forEach(ent => {
-            console.log("turned on full screen")
-            this.fullscreenchangeHandler = () => {
-                console.log("entered full screen")
-                if(document.fullscreenElement || document.webkitFullscreenElement) {
-                    console.log("entered")
-                } else {
-                    console.log("exited")
-                }
-            }
-            document.addEventListener('fullscreenchange',this.fullscreenchangeHandler)
-            document.addEventListener('webkitfullscreenchange',this.fullscreenchangeHandler)
-            const domElement = document.querySelector("canvas")
-            domElement.requestFullscreen()
-        })
-    }
+export class FullscreenSystem extends System {
+  execute(delta, time) {
+    this.queries.buttons.added.forEach(ent => {
+      let elem = document.createElement("button");
+      elem.innerText = "fullscreen";
+      elem.classList.add("fullscreen");
+      elem.addEventListener("click", e => {
+        e.stopPropagation();
+        e.preventDefault();
+        ent.addComponent(FullscreenMode);
+      });
+      document.documentElement.append(elem);
+    });
+    this.queries.active.added.forEach(ent => {
+      console.log("turned on full screen");
+      this.fullscreenchangeHandler = () => {
+        console.log("entered full screen");
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+          console.log("entered");
+        } else {
+          console.log("exited");
+        }
+      };
+      document.addEventListener("fullscreenchange", this.fullscreenchangeHandler);
+      document.addEventListener("webkitfullscreenchange", this.fullscreenchangeHandler);
+      const domElement = document.querySelector("canvas");
+      domElement.requestFullscreen();
+    });
+  }
 }
 FullscreenSystem.queries = {
-    buttons: {
-        components: [FullscreenButton],
-        listen: {
-            added:true
-        }
+  buttons: {
+    components: [FullscreenButton],
+    listen: {
+      added: true,
     },
-    active: {
-        components: [FullscreenMode],
-        listen: {
-            added:true,
-        }
-    }
-}
+  },
+  active: {
+    components: [FullscreenMode],
+    listen: {
+      added: true,
+    },
+  },
+};

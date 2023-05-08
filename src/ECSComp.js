@@ -1,33 +1,29 @@
 export class ECSComp {
-    constructor() {
-        this._listeners = {}
-        this._enabled = false
-    }
-    addEventListener(type, cb) {
-        if(!this._listeners[type]) this._listeners[type] = []
-        this._listeners[type].push(cb)
-    }
+  constructor() {
+    this._listeners = {};
+    this._enabled = false;
+  }
+  addEventListener(type, cb) {
+    if (!this._listeners[type]) this._listeners[type] = [];
+    this._listeners[type].push(cb);
+  }
 
-    _fire(type,payload) {
-        if(!this._listeners[type]) this._listeners[type] = []
-        this._listeners[type].forEach(cb => cb(payload))
-    }
+  _fire(type, payload) {
+    if (!this._listeners[type]) this._listeners[type] = [];
+    this._listeners[type].forEach(cb => cb(payload));
+  }
 
-    enable() {
-        this._enabled = true
-    }
+  enable() {
+    this._enabled = true;
+  }
 
-    disable() {
-        this._enabled = false
-    }
+  disable() {
+    this._enabled = false;
+  }
 
-    isEnabled() {
-        return this._enabled
-    }
+  isEnabled() {
+    return this._enabled;
+  }
 
-    update(time) {
-
-    }
-
-
+  update(time) {}
 }
